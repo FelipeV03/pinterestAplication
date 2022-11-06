@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+<div class="row row-cols-1 row-cols-md-4 g-1">
+    <% images.forEach(function(image) { %>
+        <div class="card card-col m-3 animate__animated animate__backInDown">
+            <img src="../img/uploads/<%= image.filename %>" class="h-100" alt="Imagen">
+            <div class="card-body">
+                <h5 class="card-title"> <%= image.title %> </h5>
+                <p class="card-text"> <%= image.descripcion %> </p>
+                <a href=" /image/<%= image._id %>  " class="btn btn-primary"> Ver Imagen</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted"> <%= format(image.create_data) %>  </small>
+            </div>
+        </div>
+    <% }) %>
+</div>
+<%- include('partials/footer') %>
