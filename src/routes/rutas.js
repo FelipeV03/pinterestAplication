@@ -1,6 +1,9 @@
-const {Router } = require("express");
+const { Router } = require("express");
 const router = Router();
 const pool = require("../database");
+const path = require("path");
+// Este modulo nos ayuda a el;iminar la imagen de la carpeta en donde se guardan las images
+const fs = require("fs-extra").promises
 // Aca requerimos el modoleo de la imagen
 // Este image es el que nos permite crear un nuevo objeto y guardarlo dentro de la base de datos
 // const Image = require("../models/image")
@@ -10,7 +13,7 @@ router.get(("/"), async (req, res) => {
     const images = await pool.query("SELECT * FROM image");
     // console.log("**Log Images**", images);
     // res.send("<h1>Ola</h1>");
-    res.render("index", {images});
+    res.render("index", { images });
 
 });
 
@@ -37,8 +40,8 @@ router.post(("/upload"), async (req, res) => {
     // console.log(image)
     // // Aca vamos a guardar las inf de las imagenes
     // await image.save();
-    const {title, descripcion} = req.body
-    const {filename, path, originalname, mimetype, size} = req.file
+    const { title, descripcion } = req.body
+    const { filename, path, originalname, mimetype, size } = req.file
 
     const newimage = {
         title,
@@ -57,17 +60,33 @@ router.post(("/upload"), async (req, res) => {
 
 router.get(("/image/:id"), async (req, res) => {
     // res.send("<h1>Ola Perfil</h1>");
-    const {id} = req.params
-    const image = await pool.query("SELECT * FROM image where _id = ?", [id]);
-    console.log(image);
-    res.render("profile", {image: image});
+    const { id } = req.params
+    const image = await pool.query("SELECT * FROM image WHERE _id = ?", [id]);
+    // console.log("**Log image**", image);
+    res.render("profile", {
+        image: image[0]
+    });
 });
 
-router.get(("/image/:id/delte"), (req, res) =>{
-    res.send("<h1>Ola Eliminado</h1>");
+router.get(("/image/:id/delete"), async (req, res) => {
+    // console.log(req.params.id);
+    const { id } = req.params
+    const del = await pool.query("DELETE FROM image WHERE _id = ?", [id]);
+    const image = await pool.query("SELECT * FROM image WHERE _id = ?", [id]);
+
+    // console.log(del);
+    // Aca le decimos que una ves elimine la inf de la imagen
+    // tambien elimine la imagen que esta almacenada en la carpeta uploads
+    // fs.unlink('src/public/img/uploads/' + image.path)
+    //     .then(() => {
+    //         console.log('File removed')
+    //     }).catch(err => {
+    //         console.error('Todo mal', err)
+    //     })
+
+    // res.send("<h1>Ola Eliminado</h1>");
+    res.redirect("/");
 });
-
-
 
 
 
