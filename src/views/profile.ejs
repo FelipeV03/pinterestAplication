@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-4 offset-md-4">
                 <div class="card card-col m-3 animate__animated animate__bounceIn">
-                    <img class="card-img-top" src="/img/uploads/<%= image.filename %>" alt="Card image cap">
+                    <img class="card-img-top" src="../img/uploads/<%= image.filename %>" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">
                             <%= image.title %>
@@ -16,7 +16,7 @@
                             <%= format(image.create_data) %>.
                         </p>
                         <div class="d-grid gap-2">
-                            <a href="/image/<%= image._id %>/delete" class="btn btn-danger">Eliminar Imagen</a>
+                            <a href="/image/<%= image.id %>/delete" class="btn btn-danger">Eliminar Imagen</a>
                         </div>
                     </div>
                 </div>

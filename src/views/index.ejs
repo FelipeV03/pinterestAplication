@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h5 class="card-title"> <%= image.title %> </h5>
                 <p class="card-text"> <%= image.descripcion %>. </p>
-                <a href=" /image/<%= image._id %>  " class="btn btn-primary"> Ver Imagen</a>
+                <a href=" /image/<%= image.id %>  " class="btn btn-primary"> Ver Imagen</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted"> <%= format(image.create_data) %>  </small>

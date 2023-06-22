@@ -76,7 +76,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 // INICIAR SERVIDOR
-app.listen (app.get("port"), () => {
-    // console.log(`(っ◔◡◔)っ Server on port ${5000} (ง︡'-'︠)ง`.rainbow);
-    console.log("(っ◔◡◔)っ", "Server on port".rainbow, app.get("port"), "(ง︡'-'︠)ง");
+// app.listen (app.get("port"), () => {
+//     // console.log(`(っ◔◡◔)っ Server on port ${5000} (ง︡'-'︠)ง`.rainbow);
+//     console.log("(っ◔◡◔)っ", "Server on port".rainbow, app.get("port"), "(ง︡'-'︠)ง");
+// });
+
+app.listen(app.get("port"), function() {
+    console.log("(っ◔◡◔)っ",`http://localhost:${this.address().port}`.rainbow,);
 });
